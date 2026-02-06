@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Walentynka</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* --- STYLIZACJA (CSS) --- */
+        body {
+            /* Różowe pudrowe tło */
+            background-color: #ffe4e1;
+            font-family: 'Nunito', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh; /* Pełna wysokość ekranu */
+            margin: 0;
+            text-align: center;
+            overflow: hidden; /* Zapobiega paskom przewijania gdy przycisk rośnie */
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.8); /* Lekko przezroczyste białe tło pod treścią */
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        /* Styl dla obrazków */
+        .gif-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 15px;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            color: #d32f2f; /* Ciemny róż/czerwień */
+            margin-bottom: 30px;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px; /* Odstęp między przyciskami */
+            flex-wrap: wrap;
+        }
+
+        /* Wspólny styl przycisków */
+        .btn {
+            padding: 15px 30px;
+            font-size: 20px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-family: 'Nunito', sans-serif;
+            font-weight: bold;
+            transition: all 0.3s ease; /* Płynna animacja */
+        }
+
+        /* Styl przycisku TAK */
+        #yesBtn {
+            background-color: #ff4081;
+            color: white;
+        }
+        #yesBtn:hover { background-color: #f50057; transform: scale(1.05); }
+
+        /* Styl przycisku NIE */
+        #noBtn {
+            background-color: #e0e0e0;
+            color: #333;
+        }
+        #noBtn:hover { background-color: #d5d5d5; }
+
+        /* Ukrywamy ekran końcowy na początku */
+        #joy-screen {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="question-screen">
+        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExYmZod3I1N2Z5N3Z0eDV2bTh4bWh6dDZ5ZWRwOHp6dWh4b2M5MDQxZCZlcD12MV9zdGlja2Vcn1yZXN1bHRzJmN0PXM/MDJ9IbGbTBg1y/giphy.gif" alt="Pytanie" class="gif-image">
+        
+        <h1>Czy zostaniesz moją Walentynką?</h1>
+
+        <div class="buttons">
+            <button class="btn" id="yesBtn">TAK</button>
+            <button class="btn" id="noBtn">NIE</button>
+        </div>
+    </div>
+
+    <div class="container" id="joy-screen">
+        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExMzh6bWl5bnd4b2VxeXk1Z2g5bHh6dDZ5ZWRwOHp6dWh4b2M5MDQxZCZlcD12MV9zdGlja2Vcn1yZXN1bHRzJmN0PXM/iCVzZwwE86i2c/giphy.gif" alt="Radość" class="gif-image" style="max-height: 400px;">
+        <h1>JEEEEJ! Wiedziałem! ❤</h1>
+    </div>
+
+
+    <script>
+        /* --- SKRYPTY (JavaScript) --- */
+
+        // Pobieramy elementy ze strony
+        const questionScreen = document.getElementById('question-screen');
+        const joyScreen = document.getElementById('joy-screen');
+        const yesBtn = document.getElementById('yesBtn');
+        const noBtn = document.getElementById('noBtn');
+
+        // Zmienna do śledzenia wielkości przycisku TAK
+        let currentFontSize = 20;
+        let currentPadding = 15;
+
+        // Co się dzieje po kliknięciu TAK
+        yesBtn.addEventListener('click', () => {
+            questionScreen.style.display = 'none'; // Ukryj pytanie
+            joyScreen.style.display = 'block';     // Pokaż radość
+            // Opcjonalnie: dodaj konfetti lub inną reakcję tutaj
+        });
+
+        // Co się dzieje po kliknięciu NIE
+        noBtn.addEventListener('click', () => {
+            // Zwiększamy czcionkę i padding przycisku TAK
+            currentFontSize += 20;
+            currentPadding += 10;
+
+            yesBtn.style.fontSize = currentFontSize + 'px';
+            yesBtn.style.padding = currentPadding + 'px ' + (currentPadding * 2) + 'px';
+
+            // Opcjonalnie: Zmieniamy tekst przycisku NIE, żeby było zabawniej
+            const noTexts = ["Jesteś pewna?", "Na pewno?", "Przemyśl to!", "Nie rób mi tego!", "Złamiesz mi serce!", "Ostatnia szansa!"];
+            // Losujemy tekst z listy (jeśli chcesz użyć, odkomentuj poniższą linię)
+            // noBtn.innerText = noTexts[Math.floor(Math.random() * noTexts.length)];
+            
+            // Jeśli przycisk jest już bardzo duży, ukrywamy przycisk NIE
+             if (currentFontSize > 150) {
+                 noBtn.style.display = 'none';
+             }
+        });
+    </script>
+
+</body>
+</html>
